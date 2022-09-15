@@ -1,3 +1,15 @@
+<?php
+$contacts = [
+  ["name" => "Pepe", "author" => "Pepe"],
+  ["name" => "Juan", "author" => "Juan"],
+  ["name" => "Marcos", "author" => "Marcos"],
+  ["name" => "Marcos", "author" => "Marcos"],
+  ["name" => "Marcos", "author" => "Marcos"],
+  ["name" => "Marcos", "author" => "Marcos"],
+]
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -57,58 +69,25 @@
       </div>
     </nav>
     <main>
-      <div class="container pt-4 p-20">
-        <ol class="list-group list-group">
-          <li
-            class="list-group-item d-flex justify-content-between align-items-start"
-          >
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Book 1</div>
-              Author:
+      
+
+      <div class="container pt-5 p-20">
+      <div class="row">
+        <?php foreach ($contacts as $contact): ?>
+        <div class="mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-capitalize"><?= $contact["name"] ?></h5>
+              <p class="m-2"><?= $contact["author"] ?></p>
+              <button class="btn btn-secondary btn-sm mb-2" type="button">Edit Book</button>
+              <button class="btn btn-danger btn-sm mb-2" type="button">Delete Book</button>
             </div>
-            <div class="d-grid gap-2 d-md-block">
-              <button class="btn btn-secondary btn-sm mb-2" type="button">
-                Edit Book
-              </button>
-              <button class="btn btn-danger btn-sm mb-2" type="button">
-                Delete Book
-              </button>
-            </div>
-          </li>
-          <li
-            class="list-group-item d-flex justify-content-between align-items-start"
-          >
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Book 2</div>
-              Author:
-            </div>
-            <div class="d-grid gap-2 d-md-block">
-              <button class="btn btn-secondary btn-sm mb-2" type="button">
-                Edit Book
-              </button>
-              <button class="btn btn-danger btn-sm mb-2" type="button">
-                Delete Book
-              </button>
-            </div>
-          </li>
-          <li
-            class="list-group-item d-flex justify-content-between align-items-start"
-          >
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Book 3</div>
-              Author:
-            </div>
-            <div class="d-grid gap-2 d-md-block">
-              <button class="btn btn-secondary btn-sm mb-2" type="button">
-                Edit Book
-              </button>
-              <button class="btn btn-danger btn-sm mb-2" type="button">
-                Delete Book
-              </button>
-            </div>
-          </li>
-        </ol>
+          </div>
+        </div>
+        <?php endforeach ?>
       </div>
+      </div>
+
     </main>
   </body>
 </html>
