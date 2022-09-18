@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
       $statement = $conn->prepare("Insert into books (name, author) values (:name, :author)");
       $statement->bindParam(":name", $_POST["name"]);
-      $statement->bindParam(":author", $_POST["author"]);
+      $statement->bindParam(":author", $_POST["author"]); //se puede meter dirctamente variable $name y $author ?????
       $statement->execute();
 
       header("Location: index.php");
