@@ -1,10 +1,10 @@
 <?php
 
-if(file_exists("contacts.json")) {
-  $contacts = json_decode(file_get_contents("contacts.json"), true);
-} else {
-  $contacts = [];
-}
+require "database.php";
+
+$books = $conn->query("Select * from books");
+// var_dump($books);
+// die();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ if(file_exists("contacts.json")) {
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/library/add.php">Add Contact</a>
+              <a class="nav-link" href="/library/add.php">Add Book</a>
             </li>
           </ul>
         </div>
@@ -70,7 +70,7 @@ if(file_exists("contacts.json")) {
 
       <div class="container pt-5 p-20">
       <div class="row">
-        <?php if (count($contacts) == 0): ?>
+        <?php if ($books->rowCount() == 0): ?>
           <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
               <p>No contacts saved yet</p>
@@ -78,12 +78,12 @@ if(file_exists("contacts.json")) {
             </div>
           </div>
         <?php endif ?>
-        <?php foreach ($contacts as $contact): ?>
+        <?php foreach ($books as $book): ?>
         <div class="mb-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-capitalize"><?= $contact["name"] ?></h5>
-              <p class="m-2"><?= $contact["author"] ?></p>
+              <h5 class="card-title text-capitalize"><?= $book["name"] ?></h5>
+              <p class="m-2"><?= $book["author"] ?></p>
               <button class="btn btn-secondary btn-sm mb-2" type="button">Edit Book</button>
               <button class="btn btn-danger btn-sm mb-2" type="button">Delete Book</button>
             </div>

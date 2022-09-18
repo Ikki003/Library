@@ -1,25 +1,27 @@
 
 <?php
 
+require "database.php";
+
+$error = null;
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-  $contact = [
-    "name" => $_POST["name"],
-    "author" => $_POST["author"],
-  ];
+    if (empty($_POST["name"]) || empty($_POST["author"])) {
+      $error = "Please fill all the fields.";
+    } else if (strlen($_POST["name"]) < 2) {
+      $error = "Name must be at least 2 characters.";
+    } else {
+      $name = $_POST["name"];
+      $author = $_POST["author"];
 
- if(file_exists("contacts.json")) {
-  $contacts = json_decode(file_get_contents("contacts.json"), true);
-} else {
-  $contacts = [];
+      $statement = $conn->prepare("Insert into books (name, author) values (:name, :author)");
+      $statement->bindParam(":name", $_POST["name"]);
+      $statement->bindParam(":author", $_POST["author"]);
+      $statement->execute();
+
+      header("Location: index.php");
+    }
 }
-
-  $contacts[] = $contact;
-
-  file_put_contents("contacts.json", json_encode($contacts));
-
-  header("Location: index.php");
-}
-
 ?>
 
 
@@ -76,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               <a class="nav-link" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./add.php">Add Contact</a>
+              <a class="nav-link" href="./add.php">Add Book</a>
             </li>
           </ul>
         </div>
@@ -89,6 +91,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card">
               <div class="card-header">Add New Book</div>
               <div class="card-body">
+                <?php if ($error): ?>
+                  <p class="text-danger">
+                    <?= $error ?>
+                  </p>
+                <?php endif ?>
                 <form method="POST" action="add.php">
                   <div class="mb-3 row">
                     <label
@@ -103,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         type="text"
                         class="form-control"
                         name="name"
-                        required
+                        
                         autocomplete="name"
                         autofocus
                       />
@@ -123,7 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         type="text"
                         class="form-control"
                         name="author"
-                        required
+                        
                         autocomplete="author"
                         autofocus
                       />
