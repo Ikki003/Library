@@ -82,10 +82,10 @@ $books = $conn->query("Select * from books");
         <div class="mb-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-capitalize"><?= $book["name"] ?></h5>
+              <h5 class="card-title"><?= $book["name"] ?></h5>
               <p class="m-2"><?= $book["author"] ?></p>
               <div class="d-grid gap-2 float-end ">
-                <a href="#" class="btn btn-secondary mb-2 btn-sm">Edit Contact</a>
+                <a href="edit.php?id=<?= $book["id"] ?>" class="btn btn-secondary mb-2 btn-sm">Edit Contact</a>
                 <a href="delete.php?id=<?= $book["id"] ?>" class="btn btn-danger mb-2 btn-sm">Delete Contact</a>
               </div>
             </div>
