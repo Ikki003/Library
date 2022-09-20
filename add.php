@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="mb-3 row">
                 <label
-                  for="phone_number"
+                  for="author"
                   class="col-md-4 col-form-label text-md-end"
                   >Author</label
                 >
