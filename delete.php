@@ -21,6 +21,6 @@ $conn->prepare("Delete from books where id = :id")->execute([":id" => $id]);
 // $statement->bindParam(":id", $id);
 // $statement->execute();
 
-header("Location: index.php");
+header("Location: home.php");
 
 ?>
