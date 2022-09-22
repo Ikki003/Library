@@ -2,6 +2,13 @@
 
 require "database.php";
 
+session_start();
+
+if (!isset($_SESSION["user"])) {
+  header("Location: login.php");
+  return;
+}
+
 $books = $conn->query("Select * from books");
 // var_dump($books);
 // die();
