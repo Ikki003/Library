@@ -40,6 +40,7 @@
         <?php if (isset($_SESSION["user"])): ?>
           <div class="p-2">
             <?= $_SESSION["user"]["email"] ?>
+            <?= $_SESSION["user"]["id"] ?>
           </div>
         <?php endif ?>
       </div>
