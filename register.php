@@ -20,12 +20,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($statement->rowCount() > 0) {
         $error = "This email is taken.";
       } else {
-        $statement= $conn->prepare("Insert into users (name, email, password) values (:name, :email, :password)");
+        $statement = $conn->prepare("Insert into users (name, email, password) values (:name, :email, :password)");
         $statement->execute([
           ":name" => $_POST["name"],
           ":email" => $_POST["email"],
           ":password" => password_hash($_POST["password"], PASSWORD_BCRYPT),
         ]);
+
+        $statement = $conn->prepare("Select * from users where email = :email limit 1");
+        $statement->bindParam(":email", $_POST["email"]);
+        $statement->execute();
+        //Tenemos un usuario como array y podemos acceder a su id, email...
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        session_start();
+        $_SESSION["user"] = $user;
 
         header("Location: home.php");
       }

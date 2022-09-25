@@ -2,6 +2,8 @@
 
 require "database.php";
 
+session_start();
+
 $id = $_GET["id"];
 
 $statement = $conn->prepare("Select * from books where id = :id");

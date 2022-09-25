@@ -8,8 +8,8 @@ if (!isset($_SESSION["user"])) {
   header("Location: login.php");
   return;
 }
-
-$books = $conn->query("Select * from books");
+//En varoables simples no necesitamos las llaves pero como tenemos un diccionario(array) en el que queremos sacar las claves necesitamos las llaves para que php lo lea bien xd
+$books = $conn->query("Select * from books where user_id = {$_SESSION['user']['id']}");
 // var_dump($books);
 // die();
 ?>

@@ -3,6 +3,8 @@
 
 require "database.php";
 
+session_start();
+
 if (!isset($_SESSION["user"])) {
   header("Location: login.php");
   return;
@@ -19,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $name = $_POST["name"];
       $author = $_POST["author"];
 
-      $statement = $conn->prepare("Insert into books (name, author) values (:name, :author)");
+      $statement = $conn->prepare("Insert into books (user_id, name, author) values ({$_SESSION['user']['id']}, :name, :author)");
       $statement->bindParam(":name", $_POST["name"]);
       $statement->bindParam(":author", $_POST["author"]); //se puede meter dirctamente variable $name y $author ?????
       $statement->execute();
