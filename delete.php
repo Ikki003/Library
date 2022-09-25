@@ -15,9 +15,9 @@ if ($statement->rowCount() == 0) {
   return;
 }
 
-$contact = $statement->fetch(PDO::FETCH_ASSOC);
+$books = $statement->fetch(PDO::FETCH_ASSOC);
 
-if ($contact["user_id"] !== $_SESSION["user"]["id"]) {
+if ($books["user_id"] !== $_SESSION["user"]["id"]) {
   http_response_code(403);
   echo("HTTP 403 UNAUTHORIZED");
   return;
@@ -31,6 +31,8 @@ $conn->prepare("Delete from books where id = :id")->execute([":id" => $id]);
 
 // $statement->bindParam(":id", $id);
 // $statement->execute();
+
+$_SESSION["flash"] = ["message" => "Book {$books['name']} deleted."];
 
 header("Location: home.php");
 

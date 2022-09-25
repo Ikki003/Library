@@ -47,7 +47,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         ":author" => $_POST["author"],
       ]);
 
+      $_SESSION["flash"] = ["message" => "Book {$_POST['name']} updated."];
+
       header("Location: home.php");
+      return;
     }
 }
 ?>

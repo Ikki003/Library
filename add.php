@@ -26,7 +26,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $statement->bindParam(":author", $_POST["author"]); //se puede meter dirctamente variable $name y $author ?????
       $statement->execute();
 
+      $_SESSION["flash"] = ["message" => "Book {$_POST['name']} added."];
+
       header("Location: home.php");
+      return;
     }
 }
 ?>
